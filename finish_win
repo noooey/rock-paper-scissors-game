@@ -1,8 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QDialog
+from PyQt5.QtCore import Qt, QCoreApplication
 
-class Finish_Win(QWidget):
+class Finish_Win(QDialog):
 
     def __init__(self):
         super().__init__()
@@ -26,14 +26,20 @@ class Finish_Win(QWidget):
 
         self.setLayout(layout)
 
-        btn = QPushButton('HOME', self)
+        btn = QPushButton('Close', self)
         btn.setStyleSheet('color:white; background:black')
         btn.resize(150, 70)
         btn.move(450, 450)
+        btn.clicked.connect(QCoreApplication.instance().quit)
 
         self.setWindowTitle('Rock-Paper-Scissors Game')
         self.resize(600, 550)
         self.show()
+
+
+    def outputFinishWindow(self):
+        return super().exec_()
+
 
 if __name__=='__main__':
     app = QApplication(sys.argv)
