@@ -7,10 +7,6 @@ from PyQt5.QtWidgets import QLayout, QGridLayout
 from logic import gameLogic
 from finish import Finish_Win
 
-#  전역 변수 선언  #  추후 초기화 메소드에
-balance = 300
-result = "win"
-
 
 class Button(QToolButton):
 
@@ -28,8 +24,10 @@ class Button(QToolButton):
 
 
 class RPSGame(QDialog):
-
     rps = 0
+    computer_rps = 0
+    balance = 300
+    result = "win"
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -41,7 +39,7 @@ class RPSGame(QDialog):
         self.balanceWindow = QLineEdit()
         self.balanceWindow.setReadOnly(True)
         self.balanceWindow.setAlignment(Qt.AlignCenter)
-        #  self.balanceWindow.setPlaceholderText(self.balance)   #  금액 띄우기
+        self.balanceWindow.setPlaceholderText(str(self.balance))   #  금액 띄우기
         rpsLayout.addWidget(self.balanceWindow, 0, 1, 1, 2)
 
         self.balanceLabel = QLabel()
@@ -80,9 +78,8 @@ class RPSGame(QDialog):
      #  결과 산출 메소드
     def goResult(self, rps):
         self.maingame = gameLogic()
-        self.maingame.setGame(balance)
-        self.maingame.mainLogic(rps, self.computer_rps, balance)
-
+        self.maingame.setGame(self.balance)
+        self.maingame.mainLogic(rps, self.computer_rps, self.balance)
 
     #  바위 버튼 눌렀을 대 이벤트 처리
     def rockButtonClicked(self):
@@ -101,10 +98,11 @@ class RPSGame(QDialog):
 
      # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
     def checkResultButtonClicked(self):
-        if result == "win":
+        self.close()
+        if self.result == "win":
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
-        elif result == "lose":
+        elif self.result == "lose":
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
 
