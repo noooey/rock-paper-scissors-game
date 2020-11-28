@@ -4,6 +4,13 @@ from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 
+from logic import gameLogic
+
+#  전역 변수 선언  #  추후 초기화 메소드에
+rps = 0
+balance = 300
+result = "win"
+
 
 class Button(QToolButton):
 
@@ -19,6 +26,7 @@ class Button(QToolButton):
         size.setWidth(max(size.width(), size.height()))
         return size
 
+
 class RPSGame(QWidget):
 
     def __init__(self, parent=None):
@@ -31,6 +39,7 @@ class RPSGame(QWidget):
         self.balanceWindow = QLineEdit()
         self.balanceWindow.setReadOnly(True)
         self.balanceWindow.setAlignment(Qt.AlignCenter)
+        #  self.balanceWindow.setPlaceholderText(self.balance)
         rpsLayout.addWidget(self.balanceWindow, 0, 1, 1, 2)
 
         self.balanceLabel = QLabel()
@@ -44,7 +53,7 @@ class RPSGame(QWidget):
         rpsLayout.addWidget(self.resultWindow, 1, 0, 1, 3)
 
         # Rock Button
-        self.rockButton = Button('바위', self.rockButtonClicked)  #  추후 이미지로 설정
+        self.rockButton = Button('바위', self.rockButtonClicked)  # 추후 이미지로 설정
         rpsLayout.addWidget(self.rockButton, 2, 1, 1, 1)
 
         # Paper Button
@@ -57,7 +66,7 @@ class RPSGame(QWidget):
 
         # Button for check the result
         self.checkResultButton = Button('결과 확인하기', self.checkResultButtonClicked)
-        self.checkResultButton.setMaximumHeight(30)  #  세로 길이 수정
+        self.checkResultButton.setMaximumHeight(30)  # 세로 길이 수정
         rpsLayout.addWidget(self.checkResultButton, 3, 0, 1, 3)
 
         # window output
@@ -65,26 +74,47 @@ class RPSGame(QWidget):
         self.setLayout(rpsLayout)
         self.setWindowTitle("Rock-Paper-Scissors Game")
 
+
+     #  결과 산출 메소드
+    def goResult(self, rps):
+        self.maingame = gameLogic()
+        self.maingame.setGame(balance)
+        self.maingame.mainLogic(rps, self.computer_rps, balance)
+
+
+    #  바위 버튼 눌렀을 대 이벤트 처리
     def rockButtonClicked(self):
-        return 0
+        rps == 2
+        self.goResult(rps)
 
+    #  보 버튼 눌렀을 때 이벤트 처리
     def paperButtonClicked(self):
-        return 0
+        rps == 3
+        self.goResult(rps)
 
+    #  가위 버튼 눌렀을 때 이벤트 처리
     def scissorsButtonClicked(self):
-        return 0
+        rps == 1
+        self.goResult(rps)
 
+     # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
     def checkResultButtonClicked(self):
+        '''
+        if result == "win":
+           게임 결과 페이지 연결
+        elif result == "lose":
+           게임 결과 페이지 연결
+        '''
         return 0
 
-
-
-
+     #  연결 된 창 띄우기
+    def outputNewWindow(self):
+        return super().exec_()
 
 
 if __name__ == '__main__':
-
     import sys
+
     app = QApplication(sys.argv)
     main = RPSGame()
     main.show()
