@@ -7,6 +7,11 @@ from PyQt5.QtWidgets import QLayout, QGridLayout
 from logic import gameLogic
 from finish import Finish_Win
 
+rps = 0
+computer_rps = 0
+balance = 300
+result = "win"
+
 
 class Button(QToolButton):
 
@@ -16,6 +21,11 @@ class Button(QToolButton):
         self.setText(text)
         self.clicked.connect(callback)
 
+        self.rps = 0
+        self.computer_rps = 0
+        self.balance = 300
+        self.result = "win"
+
     def sizeHint(self):
         size = super(Button, self).sizeHint()
         size.setHeight(size.height() + 50)
@@ -24,10 +34,6 @@ class Button(QToolButton):
 
 
 class RPSGame(QDialog):
-    rps = 0
-    computer_rps = 0
-    balance = 300
-    result = "win"
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -36,15 +42,17 @@ class RPSGame(QDialog):
         rpsLayout = QGridLayout()
 
         # Balance display window
-        self.balanceWindow = QLineEdit()
+        self.balanceWindow = QTextEdit()
+        self.balanceWindow.setMaximumHeight(30)  # 세로 길이 수정
+        self.balanceWindow.setMaximumWidth(80)
         self.balanceWindow.setReadOnly(True)
         self.balanceWindow.setAlignment(Qt.AlignCenter)
-        self.balanceWindow.setPlaceholderText(str(self.balance))   #  금액 띄우기
-        rpsLayout.addWidget(self.balanceWindow, 0, 1, 1, 2)
+        self.balanceWindow.setPlaceholderText(str(balance))   #  금액 띄우기
+        rpsLayout.addWidget(self.balanceWindow, 0, 2, 1, 1)
 
         self.balanceLabel = QLabel()
-        self.balanceLabel.setText('                잔액:')
-        rpsLayout.addWidget(self.balanceLabel, 0, 0, 1, 1)
+        self.balanceLabel.setText('               잔액:')
+        rpsLayout.addWidget(self.balanceLabel, 0, 1, 1, 1)
 
         # Result display window
         self.resultWindow = QTextEdit()  # 결과를 출력하는 페이지, 추후 이미지를 넣을지 글자만 넣을지 결정
@@ -66,6 +74,7 @@ class RPSGame(QDialog):
 
         # Button for check the result
         self.checkResultButton = Button('결과 확인하기', self.checkResultButtonClicked)
+        self.checkResultButton.setEnabled(False)
         self.checkResultButton.setMaximumHeight(30)  # 세로 길이 수정
         rpsLayout.addWidget(self.checkResultButton, 3, 0, 1, 3)
 
@@ -78,39 +87,44 @@ class RPSGame(QDialog):
      #  결과 산출 메소드
     def goResult(self, rps):
         self.maingame = gameLogic()
-        self.maingame.setGame(self.balance)
-        self.maingame.mainLogic(rps, self.computer_rps, self.balance)
+        self.maingame.setGame(balance)
+        self.maingame.mainLogic(rps, computer_rps, balance)
 
     #  바위 버튼 눌렀을 대 이벤트 처리
     def rockButtonClicked(self):
-        self.rps == 2
-        self.goResult(self.rps)
+        rps = 2
+        self.goResult(rps)
 
     #  보 버튼 눌렀을 때 이벤트 처리
     def paperButtonClicked(self):
-        self.rps == 3
-        self.goResult(self.rps)
+        rps = 3
+        self.goResult(rps)
 
     #  가위 버튼 눌렀을 때 이벤트 처리
     def scissorsButtonClicked(self):
-        self.rps == 1
-        self.goResult(self.rps)
+        rps = 1
+        self.goResult(rps)
 
      # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
     def checkResultButtonClicked(self):
         self.close()
-        if self.result == "win":
+        if self.balance == 1000:
+            self.checkResultButton.setEnabled(True)
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
-        elif self.result == "lose":
+        elif self.balance == 0:
+            self.checkResultButton.setEnabled(True)
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
-
-        return 0
+        else:
+            return 0
 
      #  연결 된 창 띄우기
     def outputMainWindow(self):
         return super().exec_()
+
+    def getBalance(self):
+        return self.balance
 
 
 if __name__ == '__main__':
