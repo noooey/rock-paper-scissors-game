@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QPushButton, QDialog
+from PyQt5.QtWidgets import QApplication, QLabel, QVBoxLayout, QPushButton, QDialog
 from PyQt5.QtCore import Qt, QCoreApplication
 
 class Finish_Win(QDialog):
