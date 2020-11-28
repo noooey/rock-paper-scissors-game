@@ -1,13 +1,13 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
+from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QDialog
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 
 from logic import gameLogic
+from finish import Finish_Win
 
 #  전역 변수 선언  #  추후 초기화 메소드에
-rps = 0
 balance = 300
 result = "win"
 
@@ -27,7 +27,9 @@ class Button(QToolButton):
         return size
 
 
-class RPSGame(QWidget):
+class RPSGame(QDialog):
+
+    rps = 0
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -39,7 +41,7 @@ class RPSGame(QWidget):
         self.balanceWindow = QLineEdit()
         self.balanceWindow.setReadOnly(True)
         self.balanceWindow.setAlignment(Qt.AlignCenter)
-        #  self.balanceWindow.setPlaceholderText(self.balance)
+        #  self.balanceWindow.setPlaceholderText(self.balance)   #  금액 띄우기
         rpsLayout.addWidget(self.balanceWindow, 0, 1, 1, 2)
 
         self.balanceLabel = QLabel()
@@ -84,31 +86,32 @@ class RPSGame(QWidget):
 
     #  바위 버튼 눌렀을 대 이벤트 처리
     def rockButtonClicked(self):
-        rps == 2
-        self.goResult(rps)
+        self.rps == 2
+        self.goResult(self.rps)
 
     #  보 버튼 눌렀을 때 이벤트 처리
     def paperButtonClicked(self):
-        rps == 3
-        self.goResult(rps)
+        self.rps == 3
+        self.goResult(self.rps)
 
     #  가위 버튼 눌렀을 때 이벤트 처리
     def scissorsButtonClicked(self):
-        rps == 1
-        self.goResult(rps)
+        self.rps == 1
+        self.goResult(self.rps)
 
      # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
     def checkResultButtonClicked(self):
-        '''
         if result == "win":
-           게임 결과 페이지 연결
+            self.finishWindow = Finish_Win()
+            self.finishWindow.outputFinishWindow()
         elif result == "lose":
-           게임 결과 페이지 연결
-        '''
+            self.finishWindow = Finish_Win()
+            self.finishWindow.outputFinishWindow()
+
         return 0
 
      #  연결 된 창 띄우기
-    def outputNewWindow(self):
+    def outputMainWindow(self):
         return super().exec_()
 
 
