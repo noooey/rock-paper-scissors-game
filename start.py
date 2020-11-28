@@ -12,7 +12,6 @@ class Start(QDialog):
         self.initUI()
 
     def initUI(self):
-
         btn = QPushButton('start', self)
         btn.setStyleSheet('color:green; background:yellow')
         btn.clicked.connect(self.startButtonClicked)
@@ -24,15 +23,18 @@ class Start(QDialog):
         self.show()
 
     def startButtonClicked(self):
+        self.close()
         self.mainWindow = RPSGame()
         self.mainWindow.outputMainWindow()
 
-    #  연결 된 창 띄우기
+        #  연결 된 창 띄우기
+
     def outputStartWindow(self):
         return super().exec_()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     start = Start()
     start.show()
-    sys.exit(app.exec_())
+    app.exec()
