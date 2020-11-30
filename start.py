@@ -1,7 +1,5 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt, QCoreApplication
 
 from main import RPSGame
 
@@ -25,6 +23,7 @@ class Start(QDialog):
     def startButtonClicked(self):
         self.close()
         self.mainWindow = RPSGame()
+        self.mainWindow.setGame()
         self.mainWindow.outputMainWindow()
 
         #  연결 된 창 띄우기
