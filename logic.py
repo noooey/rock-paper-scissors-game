@@ -23,14 +23,3 @@ class Game:
         else:
             result = "draw"
         return result
-
-        # 금액 추가
-    def addPrice(self, result):
-        self.balance = Balance()
-        if result == "win":
-            self.balance.winPrice
-        elif result == "lose":
-            self.balance.losePrice
-        elif result == "draw":
-            self.balance.drawPrice
-
