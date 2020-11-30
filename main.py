@@ -100,6 +100,8 @@ class RPSGame(QDialog):
         self.game = Game()
         self.balance = Balance()
 
+        self.balance.deductPrice()
+
         if self.game.determineWinOrLose(rps) == "win":
             self.resultWindow.setPlaceholderText("win")
             self.balance.winPrice()
