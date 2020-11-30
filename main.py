@@ -4,12 +4,12 @@ from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QDialog
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 
-from logic import gameLogic
+from logic import Game
 from finish import Finish_Win
+from balance import Balance
 
 rps = 0
 computer_rps = 0
-balance = 300
 result = "win"
 
 
@@ -42,12 +42,13 @@ class RPSGame(QDialog):
         rpsLayout = QGridLayout()
 
         # Balance display window
+        self.balance = Balance()
         self.balanceWindow = QTextEdit()
         self.balanceWindow.setMaximumHeight(30)  # 세로 길이 수정
         self.balanceWindow.setMaximumWidth(80)
         self.balanceWindow.setReadOnly(True)
         self.balanceWindow.setAlignment(Qt.AlignCenter)
-        self.balanceWindow.setPlaceholderText(str(balance))   #  금액 띄우기
+        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))   #  금액 띄우기
         rpsLayout.addWidget(self.balanceWindow, 0, 2, 1, 1)
 
         self.balanceLabel = QLabel()
@@ -86,24 +87,23 @@ class RPSGame(QDialog):
 
      #  결과 산출 메소드
     def goResult(self, rps):
-        self.maingame = gameLogic()
-        self.maingame.setGame(balance)
-        self.maingame.mainLogic(rps, computer_rps, balance)
+        self.game = Game()
+        self.balance = Balance()
 
-    #  바위 버튼 눌렀을 대 이벤트 처리
+        self.game.addPrice(self.game.determineWinOrLose(rps))
+        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 금액 띄우기
+
+    #  바위 버튼 눌렀을 때 이벤트 처리
     def rockButtonClicked(self):
-        rps = 2
-        self.goResult(rps)
+        self.goResult(2)
 
     #  보 버튼 눌렀을 때 이벤트 처리
     def paperButtonClicked(self):
-        rps = 3
-        self.goResult(rps)
+        self.goResult(3)
 
     #  가위 버튼 눌렀을 때 이벤트 처리
     def scissorsButtonClicked(self):
-        rps = 1
-        self.goResult(rps)
+        self.goResult(1)
 
      # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
     def checkResultButtonClicked(self):
