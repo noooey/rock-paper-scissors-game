@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QDialog
+from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QDialog, QPushButton
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 
@@ -80,14 +80,20 @@ class RPSGame(QDialog):
         self.setWindowTitle("Rock-Paper-Scissors Game")
 
     def setGame(self):
+        self.balance = Balance()
         self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 금액 띄우기
 
      #  결과 산출 메소드
     def goResult(self, rps):
         self.game = Game()
-        self.balance = Balance()
 
-        self.game.addPrice(self.game.determineWinOrLose(rps))
+        if self.game.determineWinOrLose(rps) == "win":
+            self.balance.winPrice()
+        elif self.game.determineWinOrLose(rps) == "lose":
+            self.balance.losePrice()
+        elif self.game.determinWinOrLose(rps) == "draw":
+            self.balance.drawPrice()
+       # self.game.addPrice(self.game.determineWinOrLose(rps))
         self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 현재 금액 띄우기
 
     #  바위 버튼 눌렀을 때 이벤트 처리
