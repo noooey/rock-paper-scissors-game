@@ -114,24 +114,25 @@ class RPSGame(QDialog):
 
         self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 현재 금액 띄우기
 
-     # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
-    def checkResultButtonClicked(self):
-        self.close()
         if self.balance.currentBalance() >= 1000:
             self.checkResultButton.setEnabled(True)
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
-
-            self.finishWindow = Finish_Win()
-            self.finishWindow.outputFinishWindow()
-
         elif self.balance.currentBalance() <= 0:
             self.checkResultButton.setEnabled(True)
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
 
+     # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
+    def checkResultButtonClicked(self):
+        self.close()
+        if self.balance.currentBalance() >= 1000:
+            self.finishWindow = Finish_Win()
+            self.finishWindow.outputFinishWindow()
+
+        elif self.balance.currentBalance() <= 0:
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
 
