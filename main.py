@@ -8,10 +8,6 @@ from logic import Game
 from finish import Finish_Win
 from balance import Balance
 
-rps = 0
-computer_rps = 0
-result = "win"
-
 
 class Button(QToolButton):
 
@@ -48,7 +44,6 @@ class RPSGame(QDialog):
         self.balanceWindow.setMaximumWidth(80)
         self.balanceWindow.setReadOnly(True)
         self.balanceWindow.setAlignment(Qt.AlignCenter)
-        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))   #  금액 띄우기
         rpsLayout.addWidget(self.balanceWindow, 0, 2, 1, 1)
 
         self.balanceLabel = QLabel()
@@ -84,6 +79,8 @@ class RPSGame(QDialog):
         self.setLayout(rpsLayout)
         self.setWindowTitle("Rock-Paper-Scissors Game")
 
+    def setGame(self):
+        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 금액 띄우기
 
      #  결과 산출 메소드
     def goResult(self, rps):
@@ -91,7 +88,7 @@ class RPSGame(QDialog):
         self.balance = Balance()
 
         self.game.addPrice(self.game.determineWinOrLose(rps))
-        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 금액 띄우기
+        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 현재 금액 띄우기
 
     #  바위 버튼 눌렀을 때 이벤트 처리
     def rockButtonClicked(self):
@@ -108,12 +105,18 @@ class RPSGame(QDialog):
      # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
     def checkResultButtonClicked(self):
         self.close()
-        if self.balance == 1000:
+        if self.balance.currentBalance() >= 1000:
             self.checkResultButton.setEnabled(True)
+            self.rockButton.setEnabled(False)
+            self.paperButton.setEnabled(False)
+            self.scissorsButton.setEnabled(False)
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
-        elif self.balance == 0:
+        elif self.balance.currentBalance() <= 0:
             self.checkResultButton.setEnabled(True)
+            self.rockButton.setEnabled(False)
+            self.paperButton.setEnabled(False)
+            self.scissorsButton.setEnabled(False)
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
         else:
@@ -122,9 +125,6 @@ class RPSGame(QDialog):
      #  연결 된 창 띄우기
     def outputMainWindow(self):
         return super().exec_()
-
-    def getBalance(self):
-        return self.balance
 
 
 if __name__ == '__main__':
