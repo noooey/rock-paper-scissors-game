@@ -106,7 +106,7 @@ class RPSGame(QDialog):
         elif self.game.determineWinOrLose(rps) == "lose":
             self.resultWindow.setPlaceholderText("lose")
             self.balance.losePrice()
-        elif self.game.determinWinOrLose(rps) == "draw":
+        elif self.game.determineWinOrLose(rps) == "draw":
             self.resultWindow.setPlaceholderText("draw")
             self.balance.drawPrice()
         self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 현재 금액 띄우기
