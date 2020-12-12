@@ -1,5 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
 
 from main import RPSGame
 
@@ -10,14 +12,25 @@ class Start(QDialog):
         self.initUI()
 
     def initUI(self):
-        btn = QPushButton('start', self)
-        btn.setStyleSheet('color:green; background:yellow')
-        btn.clicked.connect(self.startButtonClicked)
-        btn.resize(300, 50)
-        btn.move(150, 400)
+        pic_start = QPixmap('startloopy.jpg')
+        pic = pic_start.scaled(290, 290, Qt.KeepAspectRatio, Qt.FastTransformation)
 
-        self.resize(600, 550)
+        pic_label = QLabel(self)
+        pic_label.setPixmap(pic)
+        pic_label.setAlignment(Qt.AlignCenter)
+
+        btn = QPushButton('start', self)
+        btn.setStyleSheet('color:white; background:orange')
+        btn.clicked.connect(self.startButtonClicked)
+
+        layout = QVBoxLayout()
+        layout.addWidget(pic_label)
+        layout.addWidget(btn)
+
+        self.setLayout(layout)
+
         self.setWindowTitle("Rock-Paper-Scissors Game")
+        self.resize(300, 380)
         self.show()
 
     def startButtonClicked(self):
@@ -27,7 +40,6 @@ class Start(QDialog):
         self.mainWindow.outputMainWindow()
 
         #  연결 된 창 띄우기
-
     def outputStartWindow(self):
         return super().exec_()
 
