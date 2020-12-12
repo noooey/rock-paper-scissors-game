@@ -12,7 +12,7 @@ class Finish_Lose(QDialog):
 
     def initUI(self):
         pic_lose = QPixmap('loseloopy.png')
-        pic = pic_lose.scaled(290, 290, Qt.KeepAspectRatio, Qt.FastTransformation)
+        pic = pic_lose.scaled(260, 260, Qt.KeepAspectRatio, Qt.FastTransformation)
 
         pic_label = QLabel(self)
         pic_label.setPixmap(pic)
@@ -29,7 +29,7 @@ class Finish_Lose(QDialog):
         self.setLayout(layout)
 
         self.setWindowTitle('Rock-Paper-Scissors Game')
-        self.resize(300, 380)
+        self.resize(260, 360)
         self.show()
 
 
