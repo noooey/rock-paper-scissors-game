@@ -188,12 +188,17 @@ class RPSGame(QDialog):
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
+            self.rockButton.setStyleSheet('color:white; background:gray')
+            self.paperButton.setStyleSheet('color:white; background:gray')
+            self.scissorsButton.setStyleSheet('color:white; background:gray')
         elif self.balance.currentBalance() <= 0:
             self.checkResultButton.setEnabled(True)
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
-
+            self.rockButton.setStyleSheet('color:white; background:gray')
+            self.paperButton.setStyleSheet('color:white; background:gray')
+            self.scissorsButton.setStyleSheet('color:white; background:gray')
 
 
      # 결과 확인하기 버튼 눌렀을 때 이벤트 처리

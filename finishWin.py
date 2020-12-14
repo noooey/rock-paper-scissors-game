@@ -19,7 +19,7 @@ class Finish_Win(QDialog):
         #pic_label.setAlignment(Qt.AlignCenter)
 
         btn_close = QPushButton('모찌롤 와앙~', self)
-        btn_close.setStyleSheet('color:white; background:blue')
+        btn_close.setStyleSheet('color:white; background:orange')
         btn_close.clicked.connect(QCoreApplication.instance().quit)
 
         layout = QVBoxLayout()
