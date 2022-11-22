@@ -11,11 +11,7 @@ from finishLose import Finish_Lose
 from balance import Balance
 
 
-<<<<<<< HEAD
-class Button(QPushButton):
-=======
 class Button(QToolButton):
->>>>>>> 102302e6506ea459d58635629b1e3be42596650d
 
     def __init__(self, text, callback):
         super().__init__()
@@ -125,20 +121,6 @@ class RPSGame(QDialog):
         self.game = Game()
         self.balance.deductPrice()
 
-<<<<<<< HEAD
-        if self.game.determineWinOrLose(rps) == "win":
-            self.resultWindow.setPlaceholderText("win")
-            self.balance.winPrice()
-
-        elif self.game.determineWinOrLose(rps) == "lose":
-            self.resultWindow.setPlaceholderText("lose")
-            self.balance.losePrice()
-
-        elif self.game.determineWinOrLose(rps) == "draw":
-            self.resultWindow.setPlaceholderText("draw")
-            self.balance.drawPrice()
-
-=======
         # 승
         if self.game.determineWinOrLose(rps) == "youS_comP_win":
             self.resultWindow2.setPlaceholderText("win")
@@ -198,7 +180,6 @@ class RPSGame(QDialog):
             self.balance.drawPrice()
 
 
->>>>>>> 102302e6506ea459d58635629b1e3be42596650d
         self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 현재 금액 띄우기
 
         if self.balance.currentBalance() >= 1000:
@@ -207,24 +188,18 @@ class RPSGame(QDialog):
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
-<<<<<<< HEAD
-=======
             self.rockButton.setStyleSheet('color:white; background:gray')
             self.paperButton.setStyleSheet('color:white; background:gray')
             self.scissorsButton.setStyleSheet('color:white; background:gray')
->>>>>>> 102302e6506ea459d58635629b1e3be42596650d
         elif self.balance.currentBalance() <= 0:
             self.checkResultButton.setEnabled(True)
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
-<<<<<<< HEAD
-=======
             self.rockButton.setStyleSheet('color:white; background:gray')
             self.paperButton.setStyleSheet('color:white; background:gray')
             self.scissorsButton.setStyleSheet('color:white; background:gray')
 
->>>>>>> 102302e6506ea459d58635629b1e3be42596650d
 
      # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
     def checkResultButtonClicked(self):
@@ -234,11 +209,7 @@ class RPSGame(QDialog):
             self.finishWindow.outputFinishWindow()
 
         elif self.balance.currentBalance() <= 0:
-<<<<<<< HEAD
-            self.finishWindow = Finish_Win()
-=======
             self.finishWindow = Finish_Lose()
->>>>>>> 102302e6506ea459d58635629b1e3be42596650d
             self.finishWindow.outputFinishWindow()
 
         else:

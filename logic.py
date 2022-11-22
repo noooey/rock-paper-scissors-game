@@ -9,13 +9,8 @@ class Game:
     def getComputerRps(self):
         return self.computer_rps
 
-<<<<<<< HEAD
-        #  승패무 결정
-    def determineWinOrLose(self, myRps):
-=======
     ''' #  승패무 결정
         def determineWinOrLose(self, myRps):
->>>>>>> 102302e6506ea459d58635629b1e3be42596650d
         if myRps != self.getComputerRps():
             #  승
             if (myRps == 1 and self.getComputerRps() == 3) or (myRps == 2 and self.getComputerRps() == 1) or (myRps == 3 and self.getComputerRps() == 2):
@@ -26,8 +21,6 @@ class Game:
         #  무
         else:
             result = "draw"
-<<<<<<< HEAD
-=======
         return result
     '''
     def determineWinOrLose(self, myRps):    # 1: 가위  2: 바위  3: 보
@@ -53,5 +46,4 @@ class Game:
         elif myRps == 3 and self.getComputerRps() == 3:
             result = "youP_youP_draw"
 
->>>>>>> 102302e6506ea459d58635629b1e3be42596650d
         return result
