@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel, QDialog
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QTextEdit, QToolButton, QLabel, QDialog, QPushButton
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 
@@ -9,18 +9,13 @@ from finish import Finish_Win
 from balance import Balance
 
 
-class Button(QToolButton):
+class Button(QPushButton):
 
     def __init__(self, text, callback):
         super().__init__()
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.setText(text)
         self.clicked.connect(callback)
-
-        self.rps = 0
-        self.computer_rps = 0
-        self.balance = 300
-        self.result = "win"
 
     def sizeHint(self):
         size = super(Button, self).sizeHint()
@@ -79,16 +74,14 @@ class RPSGame(QDialog):
         self.setLayout(rpsLayout)
         self.setWindowTitle("Rock-Paper-Scissors Game")
 
+
     def setGame(self):
+        self.balance = Balance()
         self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 금액 띄우기
 
-     #  결과 산출 메소드
-    def goResult(self, rps):
-        self.game = Game()
-        self.balance = Balance()
-
-        self.game.addPrice(self.game.determineWinOrLose(rps))
-        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 현재 금액 띄우기
+     #  연결 된 창 띄우기
+    def outputMainWindow(self):
+        return super().exec_()
 
     #  바위 버튼 눌렀을 때 이벤트 처리
     def rockButtonClicked(self):
@@ -102,29 +95,50 @@ class RPSGame(QDialog):
     def scissorsButtonClicked(self):
         self.goResult(1)
 
-     # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
-    def checkResultButtonClicked(self):
-        self.close()
+     #  결과 산출 메소드
+    def goResult(self, rps):
+        self.game = Game()
+        self.balance.deductPrice()
+
+        if self.game.determineWinOrLose(rps) == "win":
+            self.resultWindow.setPlaceholderText("win")
+            self.balance.winPrice()
+
+        elif self.game.determineWinOrLose(rps) == "lose":
+            self.resultWindow.setPlaceholderText("lose")
+            self.balance.losePrice()
+
+        elif self.game.determineWinOrLose(rps) == "draw":
+            self.resultWindow.setPlaceholderText("draw")
+            self.balance.drawPrice()
+
+        self.balanceWindow.setPlaceholderText(str(self.balance.currentBalance()))  # 현재 금액 띄우기
+
         if self.balance.currentBalance() >= 1000:
+            self.balanceWindow.setPlaceholderText("1000")
             self.checkResultButton.setEnabled(True)
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
-            self.finishWindow = Finish_Win()
-            self.finishWindow.outputFinishWindow()
         elif self.balance.currentBalance() <= 0:
             self.checkResultButton.setEnabled(True)
             self.rockButton.setEnabled(False)
             self.paperButton.setEnabled(False)
             self.scissorsButton.setEnabled(False)
+
+     # 결과 확인하기 버튼 눌렀을 때 이벤트 처리
+    def checkResultButtonClicked(self):
+        self.close()
+        if self.balance.currentBalance() >= 1000:
             self.finishWindow = Finish_Win()
             self.finishWindow.outputFinishWindow()
+
+        elif self.balance.currentBalance() <= 0:
+            self.finishWindow = Finish_Win()
+            self.finishWindow.outputFinishWindow()
+
         else:
             return 0
-
-     #  연결 된 창 띄우기
-    def outputMainWindow(self):
-        return super().exec_()
 
 
 if __name__ == '__main__':
