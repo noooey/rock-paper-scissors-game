@@ -32,4 +32,6 @@ $ python3 start.py
 
 ![스크린샷, 2020-12-14 21-59-17](https://user-images.githubusercontent.com/66217855/203297640-743115e6-75ad-4ae5-85fd-7fc460984704.png)
 ![스크린샷, 2020-12-14 21-59-13](https://user-images.githubusercontent.com/66217855/203297766-11f42d02-70e8-432b-b712-7d9fc28c1578.png)
-![스크린샷, 2020-12-14 21-59-20](https://user-images.githubusercontent.com/66217855/203297783-0c05a015-04a9-4113-b07c-a40da04f9c26.png)
+![스크린샷, 2020-12-14 21-59-20](https://user-images.githubusercontent.com/66217855/203297783-0c05a015-04a9-4113-b07c-a40da04f9c26.png)  
+
+[YouTube](https://youtube.com/shorts/wRFA7mkJIYc)
